@@ -1,10 +1,10 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
 /**
- * Write a description of class CrabWorld here.
+ * This is the world for the modern crab scenario.
  * 
- * @author (your name) 
- * @version (a version number or a date)
+ * @elyssaKober
+ * @2/18/20
  */
 public class CrabWorld extends World
 {
@@ -16,26 +16,28 @@ public class CrabWorld extends World
     public CrabWorld()
     {    
         super(560, 560, 1); 
-        prepare();
+        populateWorld();
     }
 
     /**
      * Prepare the world for the start of the program.
      * That is: create the initial objects and add them to the world.
      */
-    private void prepare()
+    private void populateWorld()
     {
-        Worm worm = new Worm();
-        addObject(worm,324,77);
-        Worm worm2 = new Worm();
-        addObject(worm2,156,288);
-        Worm worm3 = new Worm();
-        addObject(worm3,351,453);
-        Worm worm4 = new Worm();
-        addObject(worm4,97,488);
-        Worm worm5 = new Worm();
-        addObject(worm5,442,265);
-        Crab crab = new Crab();
-        addObject(crab,111,150);
+        addObject( new Crab(), 150, 100 );
+        addObject( new Lobster(), 450, 475 );
+        addObject( new Lobster(), 350, 100 );
+        addObject( new Lobster(), 100, 300 );
+        addObject( new Worm(), greenfoot.Greenfoot.getRandomNumber(550), greenfoot.Greenfoot.getRandomNumber(550) );
+        addObject( new Worm(), greenfoot.Greenfoot.getRandomNumber(550), greenfoot.Greenfoot.getRandomNumber(550) );
+        addObject( new Worm(), greenfoot.Greenfoot.getRandomNumber(550), greenfoot.Greenfoot.getRandomNumber(550) );
+        addObject( new Worm(), greenfoot.Greenfoot.getRandomNumber(550), greenfoot.Greenfoot.getRandomNumber(550) );
+        addObject( new Worm(), greenfoot.Greenfoot.getRandomNumber(550), greenfoot.Greenfoot.getRandomNumber(550) );
+        addObject( new Worm(), greenfoot.Greenfoot.getRandomNumber(550), greenfoot.Greenfoot.getRandomNumber(550) );
+        addObject( new Worm(), greenfoot.Greenfoot.getRandomNumber(550), greenfoot.Greenfoot.getRandomNumber(550) );
+        addObject( new Worm(), greenfoot.Greenfoot.getRandomNumber(550), greenfoot.Greenfoot.getRandomNumber(550) );
+        addObject( new Worm(), greenfoot.Greenfoot.getRandomNumber(550), greenfoot.Greenfoot.getRandomNumber(550) );
+        addObject( new Worm(), greenfoot.Greenfoot.getRandomNumber(550), greenfoot.Greenfoot.getRandomNumber(550) );
     }
 }
