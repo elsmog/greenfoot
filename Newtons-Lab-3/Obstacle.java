@@ -26,7 +26,7 @@ public class Obstacle extends Actor
      */
     public void act() 
     {
-        //Actor body = getOneIntersectingObject(Body.class);
+        
         boolean isTouchingBody = isTouching(Body.class);
         if (touched && !isTouchingBody)   // not touched anymore
         { 

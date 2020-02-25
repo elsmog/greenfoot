@@ -20,6 +20,7 @@ public class Space extends World
         super(960, 620, 1);
         
         createObstacles();
+        createPorky();
         randomBodies(10);
     }
     
@@ -54,5 +55,16 @@ public class Space extends World
             addObject (new Body (size, mass, new Vector(direction, speed), new Color(r, g, b)), x, y);
             number--;
         }
+    }
+    
+    /**
+     * Create a porky that gets switched on by being hit. When on, it continuously
+     * blinks and produces a sound at fixed intervals.
+     */
+    public void createPorky()
+    {
+        int x = Greenfoot.getRandomNumber(getWidth());
+        int y = Greenfoot.getRandomNumber(getHeight());
+        addObject (new Porky (), x, y);
     }
 }
