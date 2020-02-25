@@ -17,6 +17,7 @@ public class CrabWorld extends World
     {    
         super(560, 560, 1); 
         populateWorld();
+        prepare();
     }
 
     /**
@@ -39,5 +40,13 @@ public class CrabWorld extends World
         addObject( new Worm(), greenfoot.Greenfoot.getRandomNumber(550), greenfoot.Greenfoot.getRandomNumber(550) );
         addObject( new Worm(), greenfoot.Greenfoot.getRandomNumber(550), greenfoot.Greenfoot.getRandomNumber(550) );
         addObject( new Worm(), greenfoot.Greenfoot.getRandomNumber(550), greenfoot.Greenfoot.getRandomNumber(550) );
+    }
+
+    /**
+     * Prepare the world for the start of the program.
+     * That is: create the initial objects and add them to the world.
+     */
+    private void prepare()
+    {
     }
 }
