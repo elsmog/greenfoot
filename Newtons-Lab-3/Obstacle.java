@@ -26,13 +26,14 @@ public class Obstacle extends Actor
      */
     public void act() 
     {
-        Actor body = getOneIntersectingObject(Body.class);
-        if (touched && body == null)   // not touched anymore
+        //Actor body = getOneIntersectingObject(Body.class);
+        boolean isTouchingBody = isTouching(Body.class);
+        if (touched && !isTouchingBody)   // not touched anymore
         { 
             touched = false;
             setImage ("smiley2.png");
         }
-        else if (!touched && body != null)   // just being touched now
+        else if (!touched && isTouchingBody)   // just being touched now
         {
             touched = true;
             setImage ("smiley5.png");

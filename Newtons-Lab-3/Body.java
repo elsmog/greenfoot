@@ -13,6 +13,7 @@ public class Body extends SmoothMover
 {
     private static final double GRAVITY = 3.3;
     private static final Color defaultColor = new Color(255, 216, 0);
+    private boolean wasTouchingObstacleLastAction = false;
     
     private double mass;
     
@@ -46,6 +47,16 @@ public class Body extends SmoothMover
         applyForces();
         move();
         bounceAtEdge();
+        boolean isTouchingObstacleNow = isTouching(Obstacle.class);
+        if (!wasTouchingObstacleLastAction && isTouchingObstacleNow) 
+        {
+            changeToRandomColor();
+            wasTouchingObstacleLastAction = true;
+        }
+        else if (wasTouchingObstacleLastAction && !isTouchingObstacleNow)
+        {
+            wasTouchingObstacleLastAction = false;
+        }
     }
     
     /**
@@ -57,31 +68,13 @@ public class Body extends SmoothMover
             setLocation((double)getX(), (double)getY());
             getMovement().revertHorizontal();
             accelerate(0.9);
-            int r = Greenfoot.getRandomNumber(255);
-            int g = Greenfoot.getRandomNumber(255);
-            int b = Greenfoot.getRandomNumber(255);
-            Color randomColor = new Color(r, g, b);
-            GreenfootImage image = getImage();
-            image.setColor(randomColor);
-            int height = image.getHeight();
-            int width = image.getWidth();
-            image.fillOval (0, 0, width-1, height-1);
-           
+            changeToRandomColor();
         }
         else if (getY() == 0 || getY() == getWorld().getHeight()-1) {
             setLocation((double)getX(), (double)getY());
             getMovement().revertVertical();
             accelerate(0.9);
-            int r = Greenfoot.getRandomNumber(255);
-            int g = Greenfoot.getRandomNumber(255);
-            int b = Greenfoot.getRandomNumber(255);
-            Color randomColor = new Color(r, g, b);
-            GreenfootImage image = getImage();
-            image.setColor(randomColor);
-            int height = image.getHeight();
-            int width = image.getWidth();
-            image.fillOval (0, 0, width-1, height-1);
-            
+            changeToRandomColor();
         }
     }
     
@@ -128,5 +121,18 @@ public class Body extends SmoothMover
     public double getMass()
     {
         return mass;
+    }
+    
+    private void changeToRandomColor()
+    {
+        int r = Greenfoot.getRandomNumber(255);
+        int g = Greenfoot.getRandomNumber(255);
+        int b = Greenfoot.getRandomNumber(255);
+        Color randomColor = new Color(r, g, b);
+        GreenfootImage image = getImage();
+        image.setColor(randomColor);
+        int height = image.getHeight();
+        int width = image.getWidth();
+        image.fillOval (0, 0, width-1, height-1);
     }
 }
