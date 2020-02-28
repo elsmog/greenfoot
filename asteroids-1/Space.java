@@ -22,7 +22,7 @@ public class Space extends World
         createStars(300);
         
         Rocket rocket = new Rocket();
-        addObject(rocket, getWidth()/2 + 100, getHeight()/2);
+        addObject(rocket, getWidth()/2 - 100, getHeight()/2);
         
         addAsteroids(startAsteroids);
         

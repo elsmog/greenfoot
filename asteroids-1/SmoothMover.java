@@ -55,6 +55,30 @@ public abstract class SmoothMover extends Actor
         super.setLocation((int) exactX, (int) exactY);
     }
     
+    public void moveDebris() 
+    {
+        exactX = exactX + movement.getX();
+        exactY = exactY + movement.getY();
+        
+        if (outOfWorld()) 
+        {
+            getWorld().removeObject(this);
+ 
+        }
+        else
+        {
+            setLocation(exactX, exactY);
+        }
+    }    
+    
+    public boolean outOfWorld()
+    {
+        return (exactX >= getWorld().getWidth()) 
+            || (exactX < 0) 
+            || (exactY >= getWorld().getHeight()) 
+            || (exactY < 0) ;
+    }
+    
     /**
      * Set the location from exact coordinates.
      */
@@ -133,5 +157,10 @@ public abstract class SmoothMover extends Actor
     public Vector getMovement() 
     {
         return movement;
+    }
+    
+    public void increaseSpeed(Vector s)
+    {
+        movement.add(s);
     }
 }

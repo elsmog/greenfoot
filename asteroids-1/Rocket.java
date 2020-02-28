@@ -12,19 +12,23 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, and Greenfoot)
 public class Rocket extends SmoothMover
 {
     private static final int gunReloadTime = 5;         // The minimum delay between firing the gun.
-
+    
     private int reloadDelayCount;               // How long ago we fired the gun the last time.
     
     private GreenfootImage rocket = new GreenfootImage("rocket.png");    
     private GreenfootImage rocketWithThrust = new GreenfootImage("rocketWithThrust.png");
 
+    private boolean boosterOn = false;
+    
+    private static final int NUMBER_FRAGMENTS = 15;
+    
     /**
      * Initilise this rocket.
      */
     public Rocket()
     {
         reloadDelayCount = 5;
-        move();
+        addForce(new Vector(0, 0.3));
     }
 
     /**
@@ -33,7 +37,9 @@ public class Rocket extends SmoothMover
      */
     public void act()
     {
+        move();
         checkKeys();
+        checkCollision();
         reloadDelayCount++;
     }
     
@@ -42,6 +48,7 @@ public class Rocket extends SmoothMover
      */
     private void checkKeys() 
     {
+        ignite(Greenfoot.isKeyDown("up"));
         if (Greenfoot.isKeyDown("space")) 
         {
             fire();
@@ -61,7 +68,7 @@ public class Rocket extends SmoothMover
         
         if (Greenfoot.isKeyDown("right"))
         {
-            setRotation(getRotation() - 5);
+            setRotation(getRotation() + 5);
         }
     }
     
@@ -79,4 +86,50 @@ public class Rocket extends SmoothMover
         }
     }
     
+    /**
+     * Change rocket's image to show ignition and move the rocket up or down.
+     */
+    private void ignite(boolean boosterOn)
+    {
+        if (Greenfoot.isKeyDown("up"))
+        {
+            setImage(rocketWithThrust);
+            addForce(new Vector (getRotation(), 0.1));
+        }
+        
+        else if (!Greenfoot.isKeyDown("up"))
+        {
+            setImage(rocket);
+            boosterOn = false;
+        }
+    }
+    
+    /**
+     * Check if the Rocket has collided with an asteroid, and if so, remove 
+     * rocket from world and display an explosion. Then display final score.
+     */
+    private void checkCollision()
+    {
+        Actor intersectingAsteroid = getOneIntersectingObject(Asteroid.class);
+        if (intersectingAsteroid != null)
+        {
+            World space = getWorld();
+            explode();
+            space.removeObject(this);
+        }
+    }
+    
+    public void explode()
+    {
+        placeDebris(this.getX(), this.getY(), NUMBER_FRAGMENTS);
+        Greenfoot.playSound("MetalExplosion.wav");
+    }
+    
+    private void placeDebris(int x, int y, int numberFragments)
+    {
+        for (int i = 0; i < numberFragments; i++) 
+        {
+            getWorld().addObject ( new Debris(), x, y);
+        }
+    }
 }
