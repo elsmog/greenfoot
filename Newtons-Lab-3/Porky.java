@@ -12,13 +12,13 @@ public class Porky extends Actor
     private boolean touched = false;
     private boolean porkyOn = false;
     private int timeToPlaySound;
-    private int timeToBlink = 40;
-    
+    private int timeToFade;
     
     public Porky()
     {
        porkyImage =  new GreenfootImage("pig.png");
        setImage(porkyImage);
+       porkyImage.setTransparency(255);
     }
     
     /**
@@ -27,9 +27,10 @@ public class Porky extends Actor
      */
     public void act()
     {
-        GreenfootSound oink = new GreenfootSound("snort.wav");
-        
+        GreenfootSound oink = new GreenfootSound("oinky.wav");
+        int transparency = porkyImage.getTransparency();
         boolean isTouchingBody = isTouching(Body.class);
+        
         if (touched && !isTouchingBody)   // not touched anymore
         { 
             touched = false;
@@ -39,30 +40,46 @@ public class Porky extends Actor
             touched = true;
             porkyOn = true;
         }
+        else if (touched && isTouchingBody) // being touched again
+        {
+            touched = false;
+            porkyOn = false;
+        }
+        
         if (porkyOn)
         {
+            timeToFade = 100;
+            
             if (timeToPlaySound < 1) 
             {
                 oink.play();
-                timeToPlaySound = 300;
+                timeToPlaySound = 100;
             }
             else 
             {
                 timeToPlaySound--; 
             }
-            if (timeToBlink < 1)
+            
+            if (timeToFade > 1)
             {
-               porkyImage.setTransparency(0);
-               timeToBlink = 100;
+                timeToFade--;
             }
-            else
+            else if (timeToFade <1 && transparency == 255)
             {
-                timeToBlink--;
+                porkyImage.setTransparency(90);
+                timeToFade = 100;
+            }
+            else if (timeToFade <1 && transparency == 90)
+            {
+                porkyImage.setTransparency(255);
+                timeToFade = 100; 
             }
         } 
+        
         else if (!porkyOn)
         {
             oink.stop();
+            porkyImage.setTransparency(255);
         }
     }    
 }

@@ -135,4 +135,18 @@ public class Body extends SmoothMover
         int width = image.getWidth();
         image.fillOval (0, 0, width-1, height-1);
     }
+    
+    private void moveToTheRight()
+    {
+        if (Greenfoot.isKeyDown("right"))
+        {
+            double rx = this.getExactX();
+            double ry = this.getExactY() + 100;
+            Vector moveRight = new Vector (rx, ry);
+            addForce (moveRight);
+        }
+        
+    }
 }
+
+

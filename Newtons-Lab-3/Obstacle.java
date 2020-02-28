@@ -37,12 +37,12 @@ public class Obstacle extends Actor
         {
             touched = true;
             setImage ("smiley5.png");
-            Greenfoot.playSound(sound);
+            //Greenfoot.playSound(sound);
         }
     }    
     
-    public void playSound()
+    /*public void playSound()
     {
         Greenfoot.playSound(sound);
-    }
+    }*/
 }

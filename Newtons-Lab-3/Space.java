@@ -22,6 +22,7 @@ public class Space extends World
         createObstacles();
         createPorky();
         randomBodies(10);
+        newBody();
     }
     
     /**
@@ -54,6 +55,26 @@ public class Space extends World
             int b =  Greenfoot.getRandomNumber(255);
             addObject (new Body (size, mass, new Vector(direction, speed), new Color(r, g, b)), x, y);
             number--;
+        }
+    }
+    
+    public void newBody()
+    {   
+        MouseInfo mouse = Greenfoot.getMouseInfo();
+        if (Greenfoot.mouseClicked(null))
+        {
+            int newX = mouse.getX();
+            int newY = mouse.getY();
+            int size = 20 + Greenfoot.getRandomNumber(30);
+            double mass = size * 7.0;
+            int direction = Greenfoot.getRandomNumber(360);
+            double speed = Greenfoot.getRandomNumber(150) / 100.0;
+            int x = Greenfoot.getRandomNumber(getWidth());
+            int y = Greenfoot.getRandomNumber(getHeight());
+            int r =  Greenfoot.getRandomNumber(255);
+            int g =  Greenfoot.getRandomNumber(255);
+            int b =  Greenfoot.getRandomNumber(255);
+            addObject (new Body (size, mass, new Vector(direction, speed), new Color(r, g, b)), newX, newY);
         }
     }
     
