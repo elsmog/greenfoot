@@ -13,8 +13,10 @@ import java.util.Calendar;
 public class ScoreBoard extends Actor
 {
     public static final float FONT_SIZE = 48.0f;
-    public static final int WIDTH = 400;
-    public static final int HEIGHT = 300;
+    public static final int WIDTH = 300;
+    public static final int HEIGHT = 250;
+    private int worldWidth;
+    private int worldHeight;
     
     /**
      * Create a score board with dummy result for testing.
@@ -29,7 +31,7 @@ public class ScoreBoard extends Actor
      */
     public ScoreBoard(int score)
     {
-        makeImage("Game Over", "Score: ", score);
+        makeImage("Blast!", "Final Score: ", score);
     }
 
     /**
@@ -38,17 +40,21 @@ public class ScoreBoard extends Actor
     private void makeImage(String title, String prefix, int score)
     {
         GreenfootImage image = new GreenfootImage(WIDTH, HEIGHT);
-
-        image.setColor(new Color(255,255,255, 128));
-        image.fillRect(0, 0, WIDTH, HEIGHT);
-        image.setColor(new Color(0, 0, 0, 128));
-        image.fillRect(5, 5, WIDTH-10, HEIGHT-10);
+        //Space space = (Space) getWorld();
+        //worldWidth = space.getWidth();
+        //worldHeight = space.getHeight();
+        image.setColor(new Color(100,100,100, 128));
+        image.fillRect(200, 100, WIDTH, HEIGHT);
+        image.setColor(new Color(200, 200, 200, 128));
+        image.fillRect(205, 105, WIDTH-10, HEIGHT-10);
         Font font = image.getFont();
-        font = font.deriveFont(FONT_SIZE);
+        font = font.deriveFont(70f);
         image.setFont(font);
-        image.setColor(Color.WHITE);
-        image.drawString(title, 60, 100);
-        image.drawString(prefix + score, 60, 200);
+        image.setColor(Color.GREEN);
+        image.drawString(title, 62, 100);
+        font = font.deriveFont(22.0f);
+        image.setFont(font);
+        image.drawString(prefix + score, 68, 180);
         setImage(image);
     }
 }

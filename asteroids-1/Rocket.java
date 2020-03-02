@@ -113,9 +113,10 @@ public class Rocket extends SmoothMover
         Actor intersectingAsteroid = getOneIntersectingObject(Asteroid.class);
         if (intersectingAsteroid != null)
         {
-            World space = getWorld();
+            Space space = (Space) getWorld();
             explode();
             space.removeObject(this);
+            space.gameOver();
         }
     }
     
