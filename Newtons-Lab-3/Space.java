@@ -22,9 +22,12 @@ public class Space extends World
         createObstacles();
         createPorky();
         randomBodies(10);
-        newBody();
     }
     
+    public void act()
+    {
+        newBody();
+    }
     /**
      * Create a row of abstacles across the middle of our world.
      */

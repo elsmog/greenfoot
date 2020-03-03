@@ -84,6 +84,7 @@ public class Body extends SmoothMover
     private void applyForces()
     {
         List<Body> bodies = (List<Body>) getWorld().getObjects(Body.class);
+        moveToTheRight();
         
         for (Body body : bodies) 
         {
@@ -140,9 +141,9 @@ public class Body extends SmoothMover
     {
         if (Greenfoot.isKeyDown("right"))
         {
-            double rx = this.getExactX();
-            double ry = this.getExactY() + 100;
-            Vector moveRight = new Vector (rx, ry);
+            //double rx = this.getExactX();
+            //double ry = this.getExactY() + 100;
+            Vector moveRight = new Vector (0, 10);
             addForce (moveRight);
         }
         
