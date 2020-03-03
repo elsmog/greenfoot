@@ -31,8 +31,6 @@ public class Ball extends Actor
         
         if (ballOn)
         {
-            timeToFade = 100;
-            
             if (timeToPlaySound < 1) 
             {
                 oink.play();
@@ -42,21 +40,22 @@ public class Ball extends Actor
             {
                 timeToPlaySound--; 
             }
-            
-            if (timeToFade > 1)
+            if (timeToFade <1 && transparency == 255)
             {
-                timeToFade--;
-            }
-            else if (timeToFade <1 && transparency == 255)
-            {
-                ballImage.setTransparency(90);
+                ballImage.setTransparency(1);
+                transparency = ballImage.getTransparency();
                 timeToFade = 100;
             }
-            else if (timeToFade <1 && transparency == 90)
+            else if (timeToFade <1 && transparency == 1)
             {
                 ballImage.setTransparency(255);
                 timeToFade = 100; 
             }
+            else if (timeToFade >= 1)
+            {
+                timeToFade--;
+            }
+            
         } 
         
         else if (!ballOn)
