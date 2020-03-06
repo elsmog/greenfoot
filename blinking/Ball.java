@@ -44,12 +44,12 @@ public class Ball extends Actor
             {
                 ballImage.setTransparency(1);
                 transparency = ballImage.getTransparency();
-                timeToFade = 100;
+                timeToFade = 40;
             }
             else if (timeToFade <1 && transparency == 1)
             {
                 ballImage.setTransparency(255);
-                timeToFade = 100; 
+                timeToFade = 40; 
             }
             else if (timeToFade >= 1)
             {
