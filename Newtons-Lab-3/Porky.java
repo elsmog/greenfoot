@@ -48,8 +48,6 @@ public class Porky extends Actor
         
         if (porkyOn)
         {
-            timeToFade = 100;
-            
             if (timeToPlaySound < 1) 
             {
                 oink.play();
@@ -59,20 +57,21 @@ public class Porky extends Actor
             {
                 timeToPlaySound--; 
             }
-            
-            if (timeToFade > 1)
+            if (timeToFade <1 && transparency == 255)
             {
-                timeToFade--;
+                porkyImage.setTransparency(1);
+                transparency = porkyImage.getTransparency();
+                timeToFade = 40;
             }
-            else if (timeToFade <1 && transparency == 255)
-            {
-                porkyImage.setTransparency(90);
-                timeToFade = 100;
-            }
-            else if (timeToFade <1 && transparency == 90)
+            else if (timeToFade <1 && transparency == 1)
             {
                 porkyImage.setTransparency(255);
-                timeToFade = 100; 
+                transparency = porkyImage.getTransparency();
+                timeToFade = 40;
+            }
+            else if (timeToFade >= 1)
+            {
+                timeToFade--;
             }
         } 
         

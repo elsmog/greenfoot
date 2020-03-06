@@ -84,7 +84,7 @@ public class Body extends SmoothMover
     private void applyForces()
     {
         List<Body> bodies = (List<Body>) getWorld().getObjects(Body.class);
-        moveToTheRight();
+        applyKeyboardForces();
         
         for (Body body : bodies) 
         {
@@ -136,17 +136,29 @@ public class Body extends SmoothMover
         int width = image.getWidth();
         image.fillOval (0, 0, width-1, height-1);
     }
-    
-    private void moveToTheRight()
+
+    private void applyKeyboardForces()
     {
         if (Greenfoot.isKeyDown("right"))
         {
-            //double rx = this.getExactX();
-            //double ry = this.getExactY() + 100;
             Vector moveRight = new Vector (0, 10);
             addForce (moveRight);
         }
-        
+        if (Greenfoot.isKeyDown("left"))
+        {
+            Vector moveLeft = new Vector (180, 10);
+            addForce (moveLeft);
+        }
+        if (Greenfoot.isKeyDown("up"))
+        {
+            Vector moveUp = new Vector (270, 10);
+            addForce (moveUp);
+        }
+        if (Greenfoot.isKeyDown("down"))
+        {
+            Vector moveDown = new Vector (90, 10);
+            addForce (moveDown);
+        }
     }
 }
 
