@@ -37,6 +37,7 @@ public class Rocket extends SmoothMover
      */
     public void act()
     {
+        
         move();
         checkKeys();
         checkCollision();
@@ -53,14 +54,7 @@ public class Rocket extends SmoothMover
         {
             fire();
         }
-        /*
-         * if (Greenfoot.isKeyDown("left"))
-        {
-            Rocket rocket = new Rocket;
-            int rotation = rocket.getRotation();
-            rocket.setRotation(rotation - 5);
-        }
-         */
+
         if (Greenfoot.isKeyDown("left"))
         {
             setRotation(getRotation() - 5);

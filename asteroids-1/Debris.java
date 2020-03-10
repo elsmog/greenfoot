@@ -8,11 +8,10 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  */
 public class Debris extends SmoothMover
 {
-    private static final Vector GRAVITY = new Vector(Greenfoot.getRandomNumber(360), 1);
     public Debris()
     {
         int direction = Greenfoot.getRandomNumber(360);
-        int speed = Greenfoot.getRandomNumber(10);
+        int speed = Greenfoot.getRandomNumber(10) + 1;
         increaseSpeed( new Vector(direction, speed));
         
         GreenfootImage img = getImage();
@@ -29,7 +28,6 @@ public class Debris extends SmoothMover
      */
     public void act() 
     {
-        increaseSpeed(GRAVITY);
         moveDebris();
     }    
 }

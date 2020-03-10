@@ -52,7 +52,7 @@ public class Space extends World
      */
     public void gameOver() 
     {
-        ScoreBoard scoreboard = new ScoreBoard(999);
+        addObject(new ScoreBoard(999), getWidth()/2, getHeight()/2);
     }
 
     /**
