@@ -1,5 +1,5 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, and Greenfoot)
-
+import java.util.List;
 /**
  * A proton wave that expands and destroys things in its path.
  * 
@@ -19,7 +19,7 @@ public class ProtonWave extends Actor
      * recreated for every object (improves performance significantly).
      */
     private static GreenfootImage[] images;
-    public static int imageCount = 0;
+    private int imageCount = 0;
     
     /**
      * Create a new proton wave.
@@ -28,6 +28,7 @@ public class ProtonWave extends Actor
     {
         initializeImages();
         setImage(images[0]);
+        Greenfoot.playSound("proton.wav");
     }
     
     /** 
@@ -57,10 +58,11 @@ public class ProtonWave extends Actor
      */
     public void act()
     { 
+        checkCollision();
         grow();
     }
     /**
-     * 
+     * Grow the proton wave in size (animate).
      */
     private void grow()
     {
@@ -74,5 +76,22 @@ public class ProtonWave extends Actor
             imageCount++;
         }
         
+    }
+    /**
+     * Check whether the wave touches and asteroid, and cause damage to the 
+     * asteroid if it does.
+     *
+     */
+    private void checkCollision()
+    {
+        int range = getImage().getWidth() * 1/2;
+        List<Asteroid> asteroids = getObjectsInRange (range, Asteroid.class);
+        for (Asteroid asteroid : asteroids)
+        {
+            if (asteroid != null)
+            {
+                asteroid.hit(DAMAGE);
+            }
+        }
     }
 }
