@@ -13,7 +13,7 @@ public class Counter extends Actor
 {
     private static final Color textColor = new Color(255, 180, 150);
     
-    private int value = 0;
+    private int gameScore = 0;
     private int target = 0;
     private String text;
     private int stringLength;
@@ -36,12 +36,12 @@ public class Counter extends Actor
     }
     
     public void act() {
-        if(value < target) {
-            value++;
+        if(gameScore < target) {
+            gameScore++;
             updateImage();
         }
-        else if(value > target) {
-            value--;
+        else if(gameScore > target) {
+            gameScore--;
             updateImage();
         }
     }
@@ -53,16 +53,16 @@ public class Counter extends Actor
 
     public int getValue()
     {
-        return value;
+        return target;
     }
 
     /**
      * Make the image
      */
-    private void updateImage()
+    public void updateImage()
     {
         GreenfootImage image = getImage();
         image.clear();
-        image.drawString(text + value, 1, 12);
+        image.drawString(text + gameScore, 1, 12);
     }
 }

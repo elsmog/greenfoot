@@ -12,7 +12,7 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, and Greenfoot)
 public class Rocket extends SmoothMover
 {
     private static final int gunReloadTime = 5;         // The minimum delay between firing the gun.
-    private static final int protonWaveReloadTime = 500;
+    private static final int protonWaveReloadTime = 50;
    
     private int reloadDelayCount;               // How long ago we fired the gun the last time.
     private int protonWaveDelayCount; 
@@ -30,7 +30,7 @@ public class Rocket extends SmoothMover
     public Rocket()
     {
         reloadDelayCount = 5;
-        protonWaveDelayCount = 500;
+        protonWaveDelayCount = 50;
         addForce(new Vector(0, 0.3));
     }
 
@@ -40,12 +40,13 @@ public class Rocket extends SmoothMover
      */
     public void act()
     {
-        
+        Space space = (Space) getWorld();
         move();
         checkKeys();
         checkCollision();
         reloadDelayCount++;
         protonWaveDelayCount++;
+        space.newLevel();
     }
     
     /**

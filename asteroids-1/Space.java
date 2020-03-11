@@ -1,5 +1,5 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, and Greenfoot)
-
+import java.util.List;
 
 /**
  * Space. Something for rockets to fly in.
@@ -9,8 +9,11 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, and Greenfoot)
  */
 public class Space extends World
 {
-    private Counter scoreCounter;
-    private int startAsteroids = 3;
+    public Counter scoreCounter;
+    private int startAsteroids = 2;
+    private int points;
+    public int gameScore = 0;
+    public int gameLevel = 1;
 
     public Space() 
     {
@@ -31,6 +34,7 @@ public class Space extends World
 
         Explosion.initializeImages();
         ProtonWave.initializeImages();
+       
     }
     
     /**
@@ -71,5 +75,24 @@ public class Space extends World
             background.setColor(starColor);
             background.fillOval(x, y, 2, 2);
         }
+    }
+    /**
+     * Add score to Counter using points deternmined by asteroid size
+     * (See Asteroid class method breakUp())
+     */
+    public void countScore(int points)
+    {
+        
+        scoreCounter.add(points);
+        
+    }
+    
+    public void newLevel()
+    {
+        if (getObjects(Asteroid.class).isEmpty())
+            {
+                addAsteroids(startAsteroids + gameLevel);
+                gameLevel++;
+            }
     }
 }

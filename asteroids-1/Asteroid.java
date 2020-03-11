@@ -1,4 +1,5 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, and Greenfoot)
+import java.util.List;
 
 /**
  * A rock in space
@@ -9,6 +10,7 @@ public class Asteroid extends SmoothMover
 {
     /** Size of this asteroid */
     private int size;
+    private int points;
 
     /** When the stability reaches 0 the asteroid will explode */
     private int stability;
@@ -73,10 +75,13 @@ public class Asteroid extends SmoothMover
     private void breakUp() 
     {
         Greenfoot.playSound("Explosion.wav");
+        Space space = (Space) getWorld();
         
         if(size <= 16) 
         {
             getWorld().removeObject(this);
+            space.countScore(5);
+            
         }
         else 
         {
@@ -90,8 +95,10 @@ public class Asteroid extends SmoothMover
             getWorld().addObject(a2, getX(), getY());        
             a1.move();
             a2.move();
+            space.countScore(1);
         
             getWorld().removeObject(this);
         }
     }
+   
 }
