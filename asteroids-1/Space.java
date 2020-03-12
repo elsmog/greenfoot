@@ -96,6 +96,7 @@ public class Space extends World
     {
         if (getObjects(Asteroid.class).isEmpty())
             {
+                Greenfoot.playSound("fanfare.wav");
                 addAsteroids(startAsteroids + gameLevel);
                 gameLevel++;
                 levelCounter.updateLevel();
