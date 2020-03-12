@@ -76,12 +76,20 @@ public class Asteroid extends SmoothMover
     {
         Greenfoot.playSound("Explosion.wav");
         Space space = (Space) getWorld();
+        space.getLevel();
         
         if(size <= 16) 
         {
             getWorld().removeObject(this);
-            space.countScore(5);
             
+            if (space.gameLevel == 1 || space.gameLevel == 2 || space.gameLevel == 3)
+            {
+                space.countScore(5);
+            }
+            else if (space.gameLevel == 4 || space.gameLevel == 5 || space.gameLevel == 6)
+            {
+                space.countScore(15);
+            }
         }
         else 
         {
@@ -95,7 +103,15 @@ public class Asteroid extends SmoothMover
             getWorld().addObject(a2, getX(), getY());        
             a1.move();
             a2.move();
-            space.countScore(1);
+            
+            if (space.gameLevel == 1 || space.gameLevel == 2 || space.gameLevel == 3)
+            {
+                space.countScore(1);
+            }
+            else if (space.gameLevel == 4 || space.gameLevel == 5 || space.gameLevel == 6)
+            {
+                space.countScore(5);
+            }
         
             getWorld().removeObject(this);
         }

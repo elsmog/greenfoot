@@ -10,8 +10,10 @@ import java.util.List;
 public class Space extends World
 {
     public Counter scoreCounter;
+    public LevelCounter levelCounter;
     private int startAsteroids = 2;
     private int points;
+    private int level;
     public int gameScore = 0;
     public int gameLevel = 1;
 
@@ -31,6 +33,9 @@ public class Space extends World
         
         scoreCounter = new Counter("Score: ");
         addObject(scoreCounter, 60, 380);
+        
+        levelCounter = new LevelCounter("Level ");
+        addObject(levelCounter, 580, 380);
 
         Explosion.initializeImages();
         ProtonWave.initializeImages();
@@ -93,6 +98,12 @@ public class Space extends World
             {
                 addAsteroids(startAsteroids + gameLevel);
                 gameLevel++;
+                levelCounter.updateLevel();
             }
+    }
+    
+    public int getLevel()
+    {
+        return gameLevel;
     }
 }

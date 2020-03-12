@@ -1,30 +1,26 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, and Greenfoot)
-
-
 import java.awt.Graphics;
 
 /**
- * Counter that displays a text and number.
- * 
- * @author Michael Kolling
- * @version 1.0.1
+ * Level Counter that displays a text and number.
+ *
  */
-public class Counter extends Actor
+public class LevelCounter extends Actor
 {
     private static final Color textColor = new Color(255, 180, 150);
     
-    private int gameScore = 0;
+    private int gameLevel = 1;
     private int target = 0;
     private String text;
     private int stringLength;
    
 
-    public Counter()
+    public LevelCounter()
     {
         this("");
     }
 
-    public Counter(String prefix)
+    public LevelCounter(String prefix)
     {
         text = prefix;
         stringLength = (text.length() + 2) * 10;
@@ -37,19 +33,20 @@ public class Counter extends Actor
     }
     
     public void act() {
-        if(gameScore < target) {
-            gameScore++;
+        
+        if(gameLevel < target) {
+            gameLevel++;
             updateImage();
         }
-        else if(gameScore > target) {
-            gameScore--;
+        /*else if(gameLevel > target) {
+            gameLevel--;
             updateImage();
-        }
+        }*/
     }
 
-    public void add(int score)
+    public void add(int level)
     {
-        target += score;
+        target += level;
     }
 
     public int getValue()
@@ -57,13 +54,20 @@ public class Counter extends Actor
         return target;
     }
 
+    public void updateLevel()
+    {
+        gameLevel++;
+        updateImage();
+    }
     /**
      * Make the image
      */
     public void updateImage()
     {
+        
+     
         GreenfootImage image = getImage();
         image.clear();
-        image.drawString(text + gameScore, 1, 12);
+        image.drawString(text + gameLevel, 1, 12);
     }
 }
