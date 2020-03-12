@@ -18,12 +18,15 @@ public class ScoreBoard extends Actor
     
     public ScoreBoard()
     {
+        
         this(100);
     }
     
     public ScoreBoard(int score)
     {
-        makeImage("Blast!", "Final Score:", score);
+        Counter counter = new Counter();
+        counter.getGameScore();
+        makeImage("Blast!", "Final Score:", counter.gameScore);
     }
     /**
      * Make the score board image.

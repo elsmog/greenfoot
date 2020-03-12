@@ -13,7 +13,7 @@ public class Counter extends Actor
 {
     private static final Color textColor = new Color(255, 180, 150);
     
-    private int gameScore = 0;
+    public int gameScore = 0;
     private int target = 0;
     private String text;
     private int stringLength;
@@ -66,4 +66,10 @@ public class Counter extends Actor
         image.clear();
         image.drawString(text + gameScore, 1, 12);
     }
+    
+    
+    public int getGameScore()
+    {
+        return gameScore;
+    } 
 }
