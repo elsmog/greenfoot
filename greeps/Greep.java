@@ -39,33 +39,50 @@ public class Greep extends Creature
         
         if (getMemory() == 10 && !carryingTomato())
         {
-            return;
+            //For greeps at pile, when tomatoes are gone, they leave
+            if (getOneIntersectingObject(TomatoPile.class) == null)
+            {
+                setMemory(0);
+            }
+            //For greeps at pile, they wait
+            else
+            {
+                return;
+            }
+            
         }
         else if (getMemory() == 10 && carryingTomato())
         {
+            //for greeps (who waited) who've gotten to ship with tomato
             if (atShip()) 
             {
                 dropTomato();
                 setMemory(0);
             }
+            //for greeps (who waited) and aren't at ship, but do have a tomato
             else if (!atShip())
             {
-                turnHome();
+                
                 if (atWorldEdge() || atWater())
                     {
-                        changeDirection();
+                        spit("purple");
+                        detectPurplePaint();
                         move();
                      }
                 else 
                     {
                         move();
+                        spit("orange");
                     }
+                turnHome();
              }
         }
         else if (getMemory() == 0)
         {  
+            //greeps who never waited and are carrying tomato
             if (carryingTomato()) 
             {
+                
                 if(atShip()) 
                 {
                     dropTomato();
@@ -73,20 +90,31 @@ public class Greep extends Creature
                 else if (!atShip())
                 {
                     turnHome();
-                    if (atWorldEdge() || atWater())
+                    if (atWorldEdge())
                     {
                         changeDirection();
                         move();
+                        
+                    }
+                    else if (atWater())
+                    {
+                        spit("purple");
+                        detectPurplePaint();
+                        move();
+                        
                     }
                     else 
                     {
                         move();
                     }
+                    
                 }
             }
+            //greeps who never waited and don't have a tomato
             else 
             {
                 move();
+                //headForTomatoPile();
                 changeDirection();
                 checkFood();
             }
@@ -104,7 +132,6 @@ public class Greep extends Creature
         {
             waitForGreep();
             loadTomato();
-            
             
             // Note: this attempts to load a tomato onto *another* Greep. It won't
             // do anything if we are alone here.
@@ -145,6 +172,11 @@ public class Greep extends Creature
          {
               turn(135);  
          }
+         else if (atWater())
+         {
+              turn(110);
+         }
+         
     }
     
     public void waitForGreep()
@@ -156,4 +188,30 @@ public class Greep extends Creature
           }
     }
     
+    public void headForTomatoPile()
+    {
+        if (!seePaint("orange"))
+        {
+        
+        }
+        else if (seePaint("orange"))
+        {   
+            turnTowards(getX(),getY());
+            move();
+        }
+    }
+    
+    public void detectPurplePaint()
+    {
+        if (!seePaint("purple"))
+        {
+        
+        }
+        else if (seePaint("purple"))
+        {
+            turn(90);
+            move();
+            turnHome();
+        }
+    }
 }
