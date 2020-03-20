@@ -62,19 +62,20 @@ public class Greep extends Creature
             //for greeps (who waited) and aren't at ship, but do have a tomato
             else if (!atShip())
             {
-                
+                turnHome();
                 if (atWorldEdge() || atWater())
                     {
-                        spit("purple");
-                        detectPurplePaint();
+                        changeDirection();
                         move();
+                        //spit("purple");
+                        //detectPurplePaint();
                      }
                 else 
                     {
                         move();
                         spit("orange");
                     }
-                turnHome();
+                
              }
         }
         else if (getMemory() == 0)
@@ -98,8 +99,9 @@ public class Greep extends Creature
                     }
                     else if (atWater())
                     {
-                        spit("purple");
-                        detectPurplePaint();
+                        //spit("purple");
+                        //detectPurplePaint();
+                        changeDirection();
                         move();
                         
                     }
@@ -205,7 +207,7 @@ public class Greep extends Creature
     {
         if (!seePaint("purple"))
         {
-        
+            move();
         }
         else if (seePaint("purple"))
         {
