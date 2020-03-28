@@ -19,7 +19,8 @@ public class ScoreBoard extends Actor
    
     public ScoreBoard()
     {
-        Counter counter = new Counter();
+        Space space = (Space) getWorld();
+        Counter counter = space.getCounter();
         int finalScore = counter.getGameScore();
         makeImage("Blast!", "Final Score: ", finalScore);
     }

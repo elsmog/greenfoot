@@ -112,4 +112,8 @@ public class Space extends World
         return gameLevel;
     }
     
+    public Counter getCounter()
+    {
+        return scoreCounter;
+    }
 }
