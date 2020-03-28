@@ -15,13 +15,13 @@ public class ScoreBoard extends Actor
     public static final float FONT_SIZE = 48.0f;
     public static final int WIDTH = 400;
     public static final int HEIGHT = 300;
-    public int gameScore;
+    public int finalScore;
    
     public ScoreBoard()
     {
         Counter counter = new Counter();
-        int gameScore = counter.getGameScore();
-        makeImage("Blast!", "Final Score: ", gameScore);
+        int finalScore = counter.getGameScore();
+        makeImage("Blast!", "Final Score: ", finalScore);
     }
     /**
      * Make the score board image.
