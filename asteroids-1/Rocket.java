@@ -83,8 +83,9 @@ public class Rocket extends SmoothMover
         }
         if (Greenfoot.isKeyDown("c"))
         {
-            shieldOn = true;
+            //shieldOn = true;
             startShield();
+            
         }
     }
     
@@ -152,7 +153,8 @@ public class Rocket extends SmoothMover
     
     private void startShield()
     {
-       if (shieldDelayCount >= shieldReloadTime)
+       shieldOn = true;
+        if (shieldDelayCount >= shieldReloadTime)
        {
            setImage(rocketWithShield);
            shieldDelayCount = 0;

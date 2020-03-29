@@ -8,17 +8,19 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  */
 public class Shield extends Actor
 {
-    /**
-     * Act - do whatever the Shield wants to do. This method is called whenever
-     * the 'Act' or 'Run' button gets pressed in the environment.
-     */
+    public GreenfootImage shield;
+    
     public int shieldDelayCount = 0;
     public int shieldReloadTime = 20;
+    
     public Shield()
     {
-        GreenfootImage shield = new GreenfootImage ("button-green.png");
+        shield = new GreenfootImage (60, 60);
+        shield.setColor(Color.RED);
+        shield.drawOval(0, 0, 55, 55);
+        shield.fillOval(0, 0, 55, 55);
         shield.setTransparency(30);
-        
+        this.setImage(shield);
     }
    
     public void act() 
