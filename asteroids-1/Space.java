@@ -65,7 +65,7 @@ public class Space extends World
      */
     public void gameOver() 
     {
-        addObject(new ScoreBoard(), getWidth()/2, getHeight()/2);
+        addObject(new ScoreBoard(scoreCounter.getGameScore()), getWidth()/2, getHeight()/2);
     }
 
     /**
@@ -112,8 +112,4 @@ public class Space extends World
         return gameLevel;
     }
     
-    public Counter getCounter()
-    {
-        return scoreCounter;
-    }
 }

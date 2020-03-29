@@ -17,11 +17,8 @@ public class ScoreBoard extends Actor
     public static final int HEIGHT = 300;
     public int finalScore;
    
-    public ScoreBoard()
+    public ScoreBoard(int finalScore)
     {
-        Space space = (Space) getWorld();
-        Counter counter = space.getCounter();
-        int finalScore = counter.getGameScore();
         makeImage("Blast!", "Final Score: ", finalScore);
     }
     /**
