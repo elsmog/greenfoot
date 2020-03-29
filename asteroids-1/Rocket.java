@@ -15,7 +15,7 @@ public class Rocket extends SmoothMover
     private static final int protonWaveReloadTime = 500;
     public int shieldReloadTime = 20;
    
-    private int reloadDelayCount;               // How long ago we fired the gun the last time.
+    public int reloadDelayCount;               // How long ago we fired the gun the last time.
     public int protonWaveDelayCount; 
     public int shieldDelayCount;
     
@@ -175,14 +175,14 @@ public class Rocket extends SmoothMover
     
     public void isProtonWaveReady()
     {
-        ProtonCounter protonCounter = new ProtonCounter();
-        if (protonWaveDelayCount == 500)
+        Space space = (Space) getWorld();
+        if (protonWaveDelayCount >= 500)
         {
-            protonCounter.showImage();
+            space.protonWaveCounter.showImage();
         }
-        else 
+        else if (protonWaveDelayCount < 500)
         {   
-            protonCounter.hideImage();
+            space.protonWaveCounter.hideImage();
         }
     }
 }

@@ -11,11 +11,10 @@ public class Space extends World
 {
     public Counter scoreCounter;
     public LevelCounter levelCounter;
-    public ProtonCounter protonCounter;
+    public ProtonWaveCounter protonWaveCounter;
     private int startAsteroids = 2;
     private int points;
     private int level;
-    //public int gameScore = 0;
     public int gameLevel = 1;
 
     public Space() 
@@ -38,8 +37,8 @@ public class Space extends World
         levelCounter = new LevelCounter("Level ");
         addObject(levelCounter, 300, 380);
         
-        protonCounter = new ProtonCounter();
-        addObject(protonCounter, 20, 380);
+        protonWaveCounter = new ProtonWaveCounter();
+        addObject(protonWaveCounter, 25, 380);
 
         Explosion.initializeImages();
         ProtonWave.initializeImages();
@@ -111,5 +110,5 @@ public class Space extends World
     {
         return gameLevel;
     }
-    
+     
 }
