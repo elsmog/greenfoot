@@ -12,23 +12,17 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, and Greenfoot)
 public class Rocket extends SmoothMover
 {
     private static final int gunReloadTime = 5;         // The minimum delay between firing the gun.
-    private static final int protonWaveReloadTime = 500;
-    public int shieldReloadTime = 350;
-    public int shieldDurationTime = 100;
+    private static final int protonWaveReloadTime = 500; // The minimum delay between firing the proton wave.
    
     public int reloadDelayCount;               // How long ago we fired the gun the last time.
-    public int protonWaveDelayCount; 
-    public int shieldDelayCount;
-    
-    public int shieldDurationCount;
+    public int protonWaveDelayCount;      // How long ago we fired the proton wave.
     
     private GreenfootImage rocket = new GreenfootImage("rocket.png");    
     private GreenfootImage rocketWithThrust = new GreenfootImage("rocketWithThrust.png");
     private GreenfootImage rocketWithShield = new GreenfootImage("rocket-with-shield.png");
+    private GreenfootImage rocketWithThrustAndShield = new GreenfootImage("rocket-thrust-shield.png");
     
     private boolean boosterOn = false;
-    
-    public boolean shieldActive = false;
     
     private static final int NUMBER_FRAGMENTS = 15;
     
@@ -39,7 +33,6 @@ public class Rocket extends SmoothMover
     {
         reloadDelayCount = 5;
         protonWaveDelayCount = 500;
-        shieldDelayCount = 100;
         addForce(new Vector(0, 0.3));
     }
 
@@ -51,15 +44,12 @@ public class Rocket extends SmoothMover
     {
         Space space = (Space) getWorld();
         move();
-        isShieldReady();
-        isProtonWaveReady();
+        updateProtonWaveStatus();
         checkKeys();
         checkCollision();
         reloadDelayCount++;
         protonWaveDelayCount++;
-        shieldDelayCount++;
         space.newLevel();
-        
     }
     
     /**
@@ -88,12 +78,6 @@ public class Rocket extends SmoothMover
             startProtonWave();
         }
         
-        if (Greenfoot.isKeyDown("c"))
-        {
-            shieldActive = true; 
-        }
-        
-        
     }
     
     /**
@@ -117,13 +101,13 @@ public class Rocket extends SmoothMover
     {
         if (Greenfoot.isKeyDown("up"))
         {
-            setImage(rocketWithThrust);
+            setImage(rocket);
             addForce(new Vector (getRotation(), 0.1));
         }
         
         else if (!Greenfoot.isKeyDown("up"))
         {
-            setImage(rocket);
+            setImage(rocketWithThrust);
             boosterOn = false;
         }
     }
@@ -144,12 +128,18 @@ public class Rocket extends SmoothMover
         }
     }
     
+    /**
+     * Animate the rocket's destruction with sound.
+     */
     public void explode()
     {
         placeDebris(this.getX(), this.getY(), NUMBER_FRAGMENTS);
         Greenfoot.playSound("MetalExplosion.wav");
     }
     
+    /**
+     * Place individual pieces of debris that once comprised the rocket's hull.
+     */
     private void placeDebris(int x, int y, int numberFragments)
     {
         for (int i = 0; i < numberFragments; i++) 
@@ -158,6 +148,9 @@ public class Rocket extends SmoothMover
         }
     }
     
+    /**
+     * Place a proton wave into the world at the location of the rocket.
+     */
     private void startProtonWave()
     {
         if (protonWaveDelayCount >= protonWaveReloadTime)
@@ -168,7 +161,7 @@ public class Rocket extends SmoothMover
         }
     }
     
-    public void isProtonWaveReady()
+    public void updateProtonWaveStatus()
     {
         Space space = (Space) getWorld();
         if (protonWaveDelayCount >= 500)
@@ -182,16 +175,4 @@ public class Rocket extends SmoothMover
         
     }
     
-    public void isShieldReady()
-    {
-        if (shieldActive)
-        {
-            setImage(rocketWithShield);
-        }
-        else if (!shieldActive)
-        {
-            setImage(rocket);
-        }
-        
-    }
 }
