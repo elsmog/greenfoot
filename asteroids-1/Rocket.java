@@ -47,13 +47,13 @@ public class Rocket extends SmoothMover
     {
         Space space = (Space) getWorld();
         move();
+        isProtonWaveReady();
         checkKeys();
         checkCollision();
         reloadDelayCount++;
         protonWaveDelayCount++;
         shieldDelayCount++;
         space.newLevel();
-        isProtonWaveReady();
     }
     
     /**
@@ -83,7 +83,7 @@ public class Rocket extends SmoothMover
         }
         if (Greenfoot.isKeyDown("c"))
         {
-            //shieldOn = true;
+            shieldOn = true;
             startShield();
             
         }
@@ -154,7 +154,7 @@ public class Rocket extends SmoothMover
     private void startShield()
     {
        shieldOn = true;
-        if (shieldDelayCount >= shieldReloadTime)
+       if (shieldDelayCount >= shieldReloadTime)
        {
            setImage(rocketWithShield);
            shieldDelayCount = 0;
@@ -186,5 +186,6 @@ public class Rocket extends SmoothMover
         {   
             space.protonWaveCounter.hideImage();
         }
+        
     }
 }
