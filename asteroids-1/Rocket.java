@@ -13,9 +13,14 @@ public class Rocket extends SmoothMover
 {
     private static final int gunReloadTime = 5;         // The minimum delay between firing the gun.
     private static final int protonWaveReloadTime = 500; // The minimum delay between firing the proton wave.
-   
+    private static final int shieldReloadTime = 600;     // The minimum delay between deploying the shield.
+    
     public int reloadDelayCount;               // How long ago we fired the gun the last time.
-    public int protonWaveDelayCount;      // How long ago we fired the proton wave.
+    public int protonWaveDelayCount; // How long ago we fired the proton wave.
+    public int shieldDelayCount;     // How long ago we deployed the shield.
+    
+    public int shieldDuration = 200;  //How long the shield lasts.
+   
     
     private GreenfootImage rocket = new GreenfootImage("rocket.png");    
     private GreenfootImage rocketWithThrust = new GreenfootImage("rocketWithThrust.png");
@@ -24,7 +29,13 @@ public class Rocket extends SmoothMover
     
     private boolean boosterOn = false;
     
+    public boolean shieldActive = false;
+    
+    public GreenfootImage rocketImage = getImage();
+    
     private static final int NUMBER_FRAGMENTS = 15;
+    
+    
     
     /**
      * Initilise this rocket.
@@ -33,6 +44,7 @@ public class Rocket extends SmoothMover
     {
         reloadDelayCount = 5;
         protonWaveDelayCount = 500;
+        shieldDelayCount = 700;
         addForce(new Vector(0, 0.3));
     }
 
@@ -44,11 +56,14 @@ public class Rocket extends SmoothMover
     {
         Space space = (Space) getWorld();
         move();
+        updateRocketImage();
         updateProtonWaveStatus();
+        updateShieldStatus();
         checkKeys();
         checkCollision();
         reloadDelayCount++;
         protonWaveDelayCount++;
+        shieldDelayCount++;
         space.newLevel();
     }
     
@@ -101,13 +116,11 @@ public class Rocket extends SmoothMover
     {
         if (Greenfoot.isKeyDown("up"))
         {
-            setImage(rocket);
             addForce(new Vector (getRotation(), 0.1));
         }
         
         else if (!Greenfoot.isKeyDown("up"))
         {
-            setImage(rocketWithThrust);
             boosterOn = false;
         }
     }
@@ -119,7 +132,13 @@ public class Rocket extends SmoothMover
     private void checkCollision()
     {
         Actor intersectingAsteroid = getOneIntersectingObject(Asteroid.class);
-        if (intersectingAsteroid != null)
+        
+        if (intersectingAsteroid != null && shieldActive == true)
+        {
+         // the asteroids do nothing to the rocket
+        }
+         
+        if (intersectingAsteroid != null && shieldActive == false)
         {
             Space space = (Space) getWorld();
             explode();
@@ -161,6 +180,10 @@ public class Rocket extends SmoothMover
         }
     }
     
+    /**
+     * Update the Proton Wave's gauge. When available, a blue circle appears in
+     * the bottom left corner. When unavailable, there is no blue circle.
+     */
     public void updateProtonWaveStatus()
     {
         Space space = (Space) getWorld();
@@ -173,6 +196,76 @@ public class Rocket extends SmoothMover
             space.protonWaveCounter.hideImage();
         }
         
+    }
+    
+    /**
+     * Update the Shield's gauge. When available, a green circle appears in the
+     * bottom left corner. When unavailable, there is no green circle.
+     */
+    public void updateShieldStatus()
+    {
+        Space space = (Space) getWorld();
+        if (shieldDelayCount >= 700)
+        {
+            space.shieldCounter.showImage();
+        }
+        else if (shieldDelayCount < 700)
+        {   
+            space.shieldCounter.hideImage();
+        }
+        
+    }
+    
+    public void updateRocketImage()
+    {
+     // rocket with thrust
+        if (Greenfoot.isKeyDown("up") && shieldActive == false)
+        {
+            setImage(rocketWithThrust);
+        }
+        
+     // rocket with thrust and shield
+        else if (Greenfoot.isKeyDown("up") && shieldActive == true)
+        {
+            setImage(rocketWithThrustAndShield);
+            if (shieldDelayCount >= shieldDuration)
+            {
+                setImage(rocketWithThrust);
+                shieldActive = false;
+            }
+        }
+     
+     // rocket with shield
+        else if (Greenfoot.isKeyDown("c"))
+        {
+            if (shieldDelayCount >= shieldReloadTime)
+            {
+                setImage(rocketWithShield);
+                shieldActive = true;
+                shieldDelayCount = 0;
+                if (shieldDelayCount >= shieldDuration)
+                {
+                    setImage(rocket);
+                    shieldActive = false;
+                }
+            }
+        }
+        else if (shieldActive == true && !Greenfoot.isKeyDown("up"))
+        {
+            setImage(rocketWithShield);
+            if (shieldDelayCount >= shieldDuration)
+            {
+                setImage(rocket);
+                shieldActive = false;
+            }
+        }
+     
+     
+     // rocket
+        else 
+        {   
+            setImage(rocket);
+        }
     }
     
 }
